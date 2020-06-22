@@ -1,0 +1,5 @@
+<div style="background-color: aqua; height: 100vh">
+    <div *ngFor="let workspace of workspaceList">
+      <a [routerLink]="['/home/'+workspace.id]">{{ workspace.name }}</a>
+    </div>
+  </div>

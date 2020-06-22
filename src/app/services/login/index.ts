@@ -1,33 +1,39 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Router } from '@angular/router';
+import User from './../../models/user'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export default class LoginService {
   connected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  users: User[] = [
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "McClane",
+      email: "john@police.nyc",
+      password: "holly",
+      image: "https://www.premiere.fr/sites/default/files/styles/scale_crop_1280x720/public/2018-04/diehardtv.jpg",
+      job: "policier"
+    }
+  ]
 
   constructor(private router: Router) {
 
   }
 
-  user = [
-    {
-      email: "slack@slack.fr",
-      password: "slack"
-    }
-  ]
-
-
   connect(event) {
-    for (let index = 0; index < this.user.length; index++) {
-      const element = this.user[index];
-      if (element.email ===  event.email && element.password === event.password) {
-        this.connected.next(true);
+    console.log("LoginService -> connect -> event", event)
+    let userConnect = null
+    userConnect = this.users.find(element => element.email ===  event.email && element.password === event.password )
+    if (userConnect) {
+      this.connected.next(true);
       this.router.navigate(["/home"]);
-      } else {
-        this.connected.next(false);
-      }
-      
+    } else {
+      this.connected.next(false);
     }
   }
 }

@@ -7,15 +7,13 @@ import LoginService from '../services/login/index';
   providedIn: 'root'
 })
 export class HomeGuard implements CanActivate {
-  connected;
   constructor(private loginService: LoginService, private router: Router) {
-    this.connected = this.loginService.connected.getValue()
-    console.log({coucou:this.connected})
+
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.checkLogin(this.connected);
+      return this.checkLogin(this.loginService.connected.getValue());
   }
 
   checkLogin(islogin: boolean): boolean {

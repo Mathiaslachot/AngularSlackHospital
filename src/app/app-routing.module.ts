@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from "./home/home.component";
-import { LoginComponent } from "./login/login.component";
-import { HomeGuard } from "./guard/home.guard";
+
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
+  {
+    path: "",
+    loadChildren: () => import('./modules/login.module').then(mod => mod.LoginModule)
+  },
   {
     path: "home",
-    component: HomeComponent,
-    canActivate: [HomeGuard]
+    loadChildren: () => import('./modules/home.module').then(mod => mod.HomeModule)
   }
 ];
 
